@@ -8,77 +8,20 @@ Database : MySQL
 Module   : Sales Analysis
 
 Description:
-This file contains SQL queries to analyze sales trends,
-monthly revenue, top-performing months, and payment methods.
+This file contains SQL queries to analyze sales performance,
+order fulfillment, payment methods, and delivery efficiency.
 
 Business Objective:
-To evaluate sales performance over time and identify
-key sales patterns using transactional data.
+To understand sales operations, identify top-performing
+sales periods, evaluate payment preferences,
+and measure delivery performance.
 
 ====================================================================
 */
 
 
 -- ================================================================
--- Query 1 : Monthly Order Trend
--- ================================================================
-
-/*
-Business Question:
-How many orders were placed each month?
-*/
-
-SELECT
-    DATE_FORMAT(order_purchase_timestamp,'%Y-%m') AS Month,
-    COUNT(DISTINCT order_id) AS Total_Orders
-FROM orders_new
-GROUP BY Month
-ORDER BY Month;
-
-/*
-Business Insight:
-
-Order volume increased steadily throughout 2017
-and reached its peak during 2018.
-
-The lower order count in September and October 2018
-is due to incomplete data in the dataset.
-*/
-
-
-
--- ================================================================
--- Query 2 : Monthly Revenue Trend
--- ================================================================
-
-/*
-Business Question:
-How did monthly revenue change over time?
-*/
-
-SELECT
-    DATE_FORMAT(o.order_purchase_timestamp,'%Y-%m') AS Month,
-    ROUND(SUM(op.payment_value),2) AS Revenue
-FROM orders_new o
-JOIN order_payments op
-ON o.order_id = op.order_id
-GROUP BY Month
-ORDER BY Month;
-
-/*
-Business Insight:
-
-Revenue followed a steady upward trend
-from 2017 through the first half of 2018.
-
-The decline in the final months is caused
-by incomplete records rather than lower sales.
-*/
-
-
-
--- ================================================================
--- Query 3 : Top 10 Revenue Months
+-- Query 1 : Top 10 Revenue Months
 -- ================================================================
 
 /*
@@ -105,22 +48,20 @@ Result:
 
 Business Insight:
 
-November 2017 recorded the highest monthly revenue,
-followed by April and March 2018.
-
-These months represent the strongest
-sales performance during the analysis period.
+November 2017 generated the highest revenue,
+followed by April and March 2018,
+indicating strong sales performance during these months.
 */
 
 
 
 -- ================================================================
--- Query 4 : Payment Method Analysis
+-- Query 2 : Payment Method Analysis
 -- ================================================================
 
 /*
 Business Question:
-Which payment methods are most frequently used?
+Which payment methods are used most frequently?
 */
 
 SELECT
@@ -141,10 +82,79 @@ Debit Card  : 1,529 Payments
 
 Business Insight:
 
-Credit Card is the most preferred payment method,
-contributing the highest number of transactions
-and the largest share of total revenue.
+Credit Card is the most commonly used payment method
+and contributes the largest share of total revenue.
 */
+
+
+
+-- ================================================================
+-- Query 3 : Order Status Analysis
+-- ================================================================
+
+/*
+Business Question:
+How are orders distributed across different order statuses?
+*/
+
+SELECT
+    order_status,
+    COUNT(*) AS Total_Orders
+FROM orders_new
+GROUP BY order_status
+ORDER BY Total_Orders DESC;
+
+/*
+Result:
+
+Delivered   : 96,478
+Shipped     : 1,107
+Canceled    : 625
+Unavailable : 609
+Invoiced    : 314
+Processing  : 301
+Created     : 5
+Approved    : 2
+
+Business Insight:
+
+Most orders were successfully delivered,
+while only a small percentage remained
+in processing, canceled, or unavailable status.
+*/
+
+
+
+-- ================================================================
+-- Query 4 : Average Delivery Time
+-- ================================================================
+
+/*
+Business Question:
+What is the average number of days required
+to deliver an order?
+*/
+
+SELECT
+ROUND(
+AVG(
+DATEDIFF(
+order_delivered_customer_date,
+order_purchase_timestamp
+)
+),2) AS Avg_Delivery_Days
+FROM orders_new
+WHERE order_delivered_customer_date IS NOT NULL;
+
+/*
+Run this query and update the result.
+
+Business Insight:
+
+The average delivery time helps evaluate
+overall logistics performance and customer service efficiency.
+*/
+
 
 
 /*
@@ -152,17 +162,18 @@ and the largest share of total revenue.
 
 Sales Analysis Summary
 
-• Sales increased consistently during the analysis period.
-• Revenue showed strong growth throughout 2017 and 2018.
 • November 2017 recorded the highest monthly revenue.
-• Credit Card was the most widely used payment method.
+• Credit Card was the most preferred payment method.
+• Most customer orders were successfully delivered.
+• Delivery time is an important indicator
+  of logistics performance.
 
 Conclusion:
 
-The sales trend indicates steady business growth,
-supported by increasing order volume and revenue.
-Credit Card remained the dominant payment option
-throughout the dataset.
+Sales performance remained strong throughout the analysis period,
+supported by successful order fulfillment and
+a high share of Credit Card transactions.
 
 ====================================================================
 */
+
