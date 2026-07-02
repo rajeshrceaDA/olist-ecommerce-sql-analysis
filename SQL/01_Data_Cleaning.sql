@@ -7,4 +7,4 @@ Database: MySQL
 =========================================
 */
 
--- Data Cleaning Queries
+--Data_cleaning
