@@ -147,12 +147,15 @@ FROM orders_new
 WHERE order_delivered_customer_date IS NOT NULL;
 
 /*
-Run this query and update the result.
+Result:
+
+Average Delivery Time : 12.50 Days
 
 Business Insight:
 
-The average delivery time helps evaluate
-overall logistics performance and customer service efficiency.
+On average, orders were delivered to customers
+within 12.5 days after purchase,
+indicating a consistent delivery process.
 */
 
 
@@ -162,17 +165,17 @@ overall logistics performance and customer service efficiency.
 
 Sales Analysis Summary
 
-• November 2017 recorded the highest monthly revenue.
+• November 2017 generated the highest monthly revenue.
 • Credit Card was the most preferred payment method.
-• Most customer orders were successfully delivered.
-• Delivery time is an important indicator
-  of logistics performance.
+• More than 96,000 orders were successfully delivered.
+• The average delivery time was 12.50 days.
 
 Conclusion:
 
-Sales performance remained strong throughout the analysis period,
-supported by successful order fulfillment and
-a high share of Credit Card transactions.
+The sales analysis shows steady business performance
+supported by successful order fulfillment,
+efficient payment processing,
+and a consistent average delivery time.
 
 ====================================================================
 */
