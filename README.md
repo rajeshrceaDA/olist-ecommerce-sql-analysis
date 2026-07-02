@@ -1,4 +1,4 @@
-#  End-to-End Olist E-commerce Sales Analysis using SQL & Power BI
+#  End-to-End Olist E-commerce Sales Analysis using SQL, Advanced Excel & Power BI
 
 ##  Project Overview
 
@@ -108,7 +108,7 @@ This project demonstrates practical SQL, business analysis, and dashboard develo
 
 The analysis provides meaningful business insights that can help stakeholders make data-driven decisions regarding sales performance, customer behavior, product performance, and operational efficiency.
 
-Conclusion
+## Conclusion
 
 This project demonstrates practical SQL skills used in real business scenarios, including data cleaning, exploratory data analysis, KPI reporting, and business insights generation using the Olist E-commerce dataset.
 
